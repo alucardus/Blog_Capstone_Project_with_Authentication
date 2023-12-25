@@ -13,15 +13,14 @@ import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
+app.config['SECRET_KEY'] = os.environ['FLASK_KEY']
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL', 'sqlite:///posts.db')
 db = SQLAlchemy()
 db.init_app(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', base_url=None)
